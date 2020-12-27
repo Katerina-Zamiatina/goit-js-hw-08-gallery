@@ -86,9 +86,9 @@ function gallerySliderLeft(event) {
   const left_keyCode = 'ArrowLeft';
   const slideLeft = event.code === left_keyCode;
    if (slideLeft) {
-       if(index < images.length){
+       if(index < images.length-1){
            index += 1;
-           refs.modalImg.src = images[index + 1].original;
+           refs.modalImg.src = images[index - 1].original;
        }
   
     }
@@ -100,7 +100,7 @@ function gallerySliderRight(event) {
      if (slideRight) {
         if(index > 0){
             index -= 1;
-            refs.modalImg.src = images[index - 1].original;
+            refs.modalImg.src = images[index + 1].original;
         }
     }
 }
