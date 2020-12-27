@@ -2,7 +2,6 @@ import images from './gallery-items.js';
 
 const refs = {
   gallery: document.querySelector('.js-gallery'),
-  
   modalImg: document.querySelector('.lightbox__image'),
   closeModalBtn: document.querySelector('.lightbox__button'),
   lightbox: document.querySelector('.lightbox'),
@@ -75,18 +74,14 @@ function onOverlayClick(event) {
 }
 
 function onESCPress(event) {
-  const ESC_keyCode = 'Escape';
-  const isESC = event.code === ESC_keyCode;
-  if (isESC) {
+  if (event.code === 'Escape') {
     onCloseModal();
   }
 }
 
 function gallerySliderLeft(event) {
-  const left_keyCode = 'ArrowLeft';
-  const slideLeft = event.code === left_keyCode;
-   if (slideLeft) {
-       if(index < images.length-1){
+   if (event.code ==='ArrowLeft') {
+       if(index < images.length - 1){
            index += 1;
            refs.modalImg.src = images[index - 1].original;
        }
@@ -95,16 +90,10 @@ function gallerySliderLeft(event) {
 }
 
 function gallerySliderRight(event) {
-  const right_keyCode = 'ArrowRight';
-  const slideRight = event.code === right_keyCode;
-     if (slideRight) {
+    if (event.code ===  'ArrowRight') {
         if(index > 0){
             index -= 1;
             refs.modalImg.src = images[index + 1].original;
         }
     }
 }
-
-
-// const galleryImg = document.querySelectorAll('.gallery__image')
-// console.log(galleryImg)
