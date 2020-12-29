@@ -39,7 +39,7 @@ function onGalleryClick(event) {
   const modalImgUrl = imageRef.dataset.source;
   const modalImgAlt = imageRef.alt;
   index = Number(imageRef.dataset.index);
-  
+
   setModalImgAtt(modalImgUrl, modalImgAlt);
   onOpenModal();
 }
@@ -69,6 +69,7 @@ function onOverlayClick(event) {
 
 function onKeyPress(event) {
   refs.modalImg.src = images[index].original;
+  refs.modalImg.alt = images[index].description;
   switch (event.code) {
     case 'Escape':
       onCloseModal();
