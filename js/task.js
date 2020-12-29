@@ -8,7 +8,7 @@ const refs = {
   overlay: document.querySelector('.lightbox__overlay'),
 };
 
-let index = -1;
+let index;
 
 const galleryItems = createGalleryItems(images);
 addGalleryItems(galleryItems);
@@ -20,21 +20,14 @@ refs.overlay.addEventListener('click', onOverlayClick);
 function createGalleryItems(items) {
   return items
     .map(
-      item =>
-        `<li class="gallery__item"><a class="gallery__link" href="${
-          item.original
-        }"><img class="gallery__image" src="${item.preview}" data-source="${
-          item.original
-        }" alt="${
-          item.description
-        }" data-index="${(index += 1)}"></a></li>`,
+      (item, i) =>
+        `<li class="gallery__item"><a class="gallery__link" href="${item.original}"><img class="gallery__image" src="${item.preview}" data-source="${item.original}" alt="${item.description}" data-index="${i}"></a></li>`,
     )
     .join('');
 }
 
 function addGalleryItems(items) {
-    refs.gallery.innerHTML = items;
-   
+  refs.gallery.innerHTML = items;
 }
 
 function onGalleryClick(event) {
@@ -44,6 +37,8 @@ function onGalleryClick(event) {
   }
   const imageRef = event.target;
   const modalImgUrl = imageRef.dataset.source;
+  index = Number(imageRef.dataset.index);
+  console.log(typeof index);
   setModalImageSrc(modalImgUrl);
   onOpenModal();
 }
@@ -53,16 +48,19 @@ function setModalImageSrc(url) {
 }
 
 function onOpenModal() {
-  window.addEventListener('keydown', onESCPress);
-  window.addEventListener('keydown', gallerySliderLeft);
-  window.addEventListener('keydown', gallerySliderRight);
+  window.addEventListener('keydown', onKeyPress);
+  // window.addEventListener('keydown', onESCPress);
+  // window.addEventListener('keydown', gallerySliderLeft);
+  // window.addEventListener('keydown', gallerySliderRight);
   refs.lightbox.classList.add('is-open');
 }
 
 function onCloseModal() {
-  window.removeEventListener('keydown', onESCPress);
-  window.removeEventListener('keydown', gallerySliderLeft);
-  window.removeEventListener('keydown', gallerySliderRight);
+  window.removeEventListener('keydown', onKeyPress);
+
+  // window.removeEventListener('keydown', onESCPress);
+  // window.removeEventListener('keydown', gallerySliderLeft);
+  // window.removeEventListener('keydown', gallerySliderRight);
   refs.lightbox.classList.remove('is-open');
   refs.modalImg.src = '';
 }
@@ -73,27 +71,48 @@ function onOverlayClick(event) {
   }
 }
 
-function onESCPress(event) {
-  if (event.code === 'Escape') {
-    onCloseModal();
+// function onESCPress(event) {
+//   if (event.code === 'Escape') {
+//     onCloseModal();
+//   }
+// }
+
+// function gallerySliderLeft(event) {
+//   if (event.code === 'ArrowLeft') {
+//     if (index < images.length - 1) {
+//       index += 1;
+//       refs.modalImg.src = images[index].original;
+//     }
+//   }
+// }
+
+// function gallerySliderRight(event) {
+//   if (event.code === 'ArrowRight') {
+//     if (index > 0) {
+//       index -= 1;
+//       refs.modalImg.src = images[index].original;
+//     }
+//   }
+// }
+function onKeyPress(event) {
+  refs.modalImg.src = images[index].original;
+  switch (event.code) {
+    case 'Escape':
+      onCloseModal();
+      break;
+    case 'ArrowLeft':
+      if (index > 0) {
+        index -= 1;
+      } else if (index === 0) {
+        index = images.length - 1;
+      }
+      break;
+    case 'ArrowRight':
+      if (index < images.length - 1) {
+        index += 1;
+      } else if (index === images.length - 1) {
+        index = 0;
+      }
+      break;
   }
-}
-
-function gallerySliderLeft(event) {
-   if (event.code ==='ArrowLeft') {
-       if(index < images.length - 1){
-           index += 1;
-           refs.modalImg.src = images[index - 1].original;
-       }
-  
-    }
-}
-
-function gallerySliderRight(event) {
-    if (event.code ===  'ArrowRight') {
-        if(index > 0){
-            index -= 1;
-            refs.modalImg.src = images[index + 1].original;
-        }
-    }
 }
