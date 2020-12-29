@@ -38,7 +38,6 @@ function onGalleryClick(event) {
   const imageRef = event.target;
   const modalImgUrl = imageRef.dataset.source;
   index = Number(imageRef.dataset.index);
-  console.log(typeof index);
   setModalImageSrc(modalImgUrl);
   onOpenModal();
 }
@@ -49,18 +48,11 @@ function setModalImageSrc(url) {
 
 function onOpenModal() {
   window.addEventListener('keydown', onKeyPress);
-  // window.addEventListener('keydown', onESCPress);
-  // window.addEventListener('keydown', gallerySliderLeft);
-  // window.addEventListener('keydown', gallerySliderRight);
   refs.lightbox.classList.add('is-open');
 }
 
 function onCloseModal() {
   window.removeEventListener('keydown', onKeyPress);
-
-  // window.removeEventListener('keydown', onESCPress);
-  // window.removeEventListener('keydown', gallerySliderLeft);
-  // window.removeEventListener('keydown', gallerySliderRight);
   refs.lightbox.classList.remove('is-open');
   refs.modalImg.src = '';
 }
@@ -71,29 +63,6 @@ function onOverlayClick(event) {
   }
 }
 
-// function onESCPress(event) {
-//   if (event.code === 'Escape') {
-//     onCloseModal();
-//   }
-// }
-
-// function gallerySliderLeft(event) {
-//   if (event.code === 'ArrowLeft') {
-//     if (index < images.length - 1) {
-//       index += 1;
-//       refs.modalImg.src = images[index].original;
-//     }
-//   }
-// }
-
-// function gallerySliderRight(event) {
-//   if (event.code === 'ArrowRight') {
-//     if (index > 0) {
-//       index -= 1;
-//       refs.modalImg.src = images[index].original;
-//     }
-//   }
-// }
 function onKeyPress(event) {
   refs.modalImg.src = images[index].original;
   switch (event.code) {
