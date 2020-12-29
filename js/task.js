@@ -37,13 +37,16 @@ function onGalleryClick(event) {
   }
   const imageRef = event.target;
   const modalImgUrl = imageRef.dataset.source;
+  const modalImgAlt = imageRef.alt;
   index = Number(imageRef.dataset.index);
-  setModalImageSrc(modalImgUrl);
+  
+  setModalImgAtt(modalImgUrl, modalImgAlt);
   onOpenModal();
 }
 
-function setModalImageSrc(url) {
+function setModalImgAtt(url, alt) {
   refs.modalImg.src = url;
+  refs.modalImg.alt = alt;
 }
 
 function onOpenModal() {
@@ -55,6 +58,7 @@ function onCloseModal() {
   window.removeEventListener('keydown', onKeyPress);
   refs.lightbox.classList.remove('is-open');
   refs.modalImg.src = '';
+  refs.modalImg.alt = '';
 }
 
 function onOverlayClick(event) {
