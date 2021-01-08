@@ -8,7 +8,11 @@ const refs = {
   overlay: document.querySelector('.lightbox__overlay'),
 };
 
+<<<<<<< Updated upstream
 let index;
+=======
+let index = 0;
+>>>>>>> Stashed changes
 
 const galleryItems = createGalleryItems(images);
 addGalleryItems(galleryItems);
@@ -21,7 +25,17 @@ function createGalleryItems(items) {
   return items
     .map(
       (item, i) =>
+<<<<<<< Updated upstream
         `<li class="gallery__item"><a class="gallery__link" href="${item.original}"><img class="gallery__image" src="${item.preview}" data-source="${item.original}" alt="${item.description}" data-index="${i}"></a></li>`,
+=======
+        `<li class="gallery__item"><a class="gallery__link" href="${
+          item.original
+        }"><img class="gallery__image" src="${item.preview}" data-source="${
+          item.original
+        }" alt="${
+          item.description
+        }" data-index="${i}"></a></li>`,
+>>>>>>> Stashed changes
     )
     .join('');
 }
@@ -37,10 +51,15 @@ function onGalleryClick(event) {
   }
   const imageRef = event.target;
   const modalImgUrl = imageRef.dataset.source;
+<<<<<<< Updated upstream
   const modalImgAlt = imageRef.alt;
   index = Number(imageRef.dataset.index);
 
   setModalImgAtt(modalImgUrl, modalImgAlt);
+=======
+  index = Number(imageRef.dataset.index);
+  setModalImageSrc(modalImgUrl);
+>>>>>>> Stashed changes
   onOpenModal();
 }
 
@@ -90,3 +109,30 @@ function onKeyPress(event) {
       break;
   }
 }
+<<<<<<< Updated upstream
+=======
+
+function gallerySliderLeft(event) {
+   if (event.code ==='ArrowLeft') {
+       if (index > 0) {
+           index -= 1;
+           refs.modalImg.src = images[index].original;
+       } else if (index === 0) {
+           index = images.length - 1;
+           refs.modalImg.src = images[index].original;
+       }
+    }
+}
+
+function gallerySliderRight(event) {
+    if (event.code ===  'ArrowRight') {
+        if(index < images.length - 1){
+            index += 1;
+            refs.modalImg.src = images[index].original;
+        } else if (index === images.length - 1) {
+            index = 0;
+            refs.modalImg.src = images[index].original;
+        }
+    }
+}
+>>>>>>> Stashed changes
